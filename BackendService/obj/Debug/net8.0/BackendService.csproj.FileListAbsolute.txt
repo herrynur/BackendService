@@ -109,3 +109,4 @@ E:\Backend\.NET\BackendService\BackendService\bin\Debug\net8.0\Microsoft.AspNetC
 E:\Backend\.NET\BackendService\BackendService\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Versioning.dll
 E:\Backend\.NET\BackendService\BackendService\bin\Debug\net8.0\Newtonsoft.Json.dll
 E:\Backend\.NET\BackendService\BackendService\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+E:\Backend\.NET\BackendService\BackendService\obj\Debug\net8.0\BackendService.sourcelink.json

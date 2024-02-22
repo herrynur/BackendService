@@ -1,3 +1,5 @@
+using BackendService.Helper.Middleware;
+
 namespace BackendService
 {
     public class Program
@@ -29,11 +31,9 @@ namespace BackendService
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
+            app.UseErrorHandler();
 
             app.Run();
         }
