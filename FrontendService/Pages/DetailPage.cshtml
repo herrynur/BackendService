@@ -88,6 +88,10 @@
 </div>
 
 <script>
+    setInterval(function () {
+        map.invalidateSize();
+    }, 2000);
+
     var map = L.map('map').setView([@Model.Place.Lattitude, @Model.Place.Longitude], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {

@@ -11,6 +11,7 @@ namespace FrontendService.Pages
 
         //Define model
         public List<PlaceReadDto> Places { get; set; } = [];
+        public PlaceReadDto Place { get; set; } = new PlaceReadDto();
 
         public MapsPageModel(IPlaceServices placeServices)
         {
@@ -20,6 +21,16 @@ namespace FrontendService.Pages
         public async Task<IActionResult> OnGet()
         {
             Places = await _placeServices.GetAllPlaceAsync(cancellationToken: default);
+
+            //Init place
+            Place = new()
+            {
+                Address = "-",
+                Lattitude = "-",
+                Longitude = "-",
+                OwnerName = "-",
+                PlaceName = "-",
+            };
 
             return Page();
         }

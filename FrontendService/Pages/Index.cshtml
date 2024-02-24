@@ -5,6 +5,13 @@
     ViewData["Title"] = "Home page";
 }
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
 <!--Header-->
 <div class="text-center">
     <h1 class="display-5">Location List</h1>
@@ -57,6 +64,7 @@
         </tbody>
     </table>
 </div>
+
 <!-- Modal Create Update -->
 <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -77,17 +85,20 @@
                         <label for="placeName">Place Name</label>
                         <input type="text" asp-for = "@Model.PlaceWrite.PlaceName" class= "form-control" id="placeName" placeholder="Enter Place Name">
                     </div>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="longitude">Longitude</label>
                         <input type="text" asp-for = "@Model.PlaceWrite.Longitude" class= "form-control" id="longitude" placeholder="Enter Longitude">
                     </div>
                     <div class="form-group">
                         <label for="latitude">Latitude</label>
                         <input type="text" asp-for = "@Model.PlaceWrite.Lattitude" class= "form-control" id="latitude" placeholder="Enter Latitude">
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label for="address">Address</label>
                         <input type="text" asp-for = "@Model.PlaceWrite.Address" class= "form-control" id="address" placeholder="Enter Address">
+                    </div>
+                    <div class="center-margin">
+                        <div id="map"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -99,8 +110,39 @@
     </div>
 </div>
 
+<style>
+    .center-margin {
+        margin: 20px 10px 10px 10px;
+    }
+
+    #map {
+        height: 400px;
+        width: 450px;
+    }
+</style>
+<script>
+    setInterval(function () {
+        map.invalidateSize();
+    }, 2000);
+
+    var map = L.map('map').setView(["-6.597147", "106.806038"], 13);
+
+    var marker = L.marker(["-6.597147", "106.806038"]).addTo(map);
+
+    map.on('click', function (e) {
+        var latitude = e.latlng.lat;
+        var longitude = e.latlng.lng;
+
+        marker.setLatLng([latitude, longitude]);
+    });
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+</script>
+
 @section scripts {
-    <script>
-        
-    </script>
+    
 }
+
