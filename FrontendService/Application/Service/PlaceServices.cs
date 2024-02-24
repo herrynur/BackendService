@@ -86,13 +86,13 @@ namespace FrontendService.Application.Service
             return returnResponse;
         }
 
-        public async Task<ResponseBaseModel> UpdatePlaceAsync(Guid id, PlaceWriteDto placeReadDto, CancellationToken cancellationToken)
+        public async Task<ResponseBaseModel> UpdatePlaceAsync(Guid id, PlaceReadDto input, CancellationToken cancellationToken)
         {
             var returnResponse = new ResponseBaseModel();
             //Define url
             var url = new Uri(setting.Value.BaseUrl + "Places/" + id);
             //Set Body
-            var bodyAsString = JsonConvert.SerializeObject(placeReadDto, Formatting.None, new JsonSerializerSettings
+            var bodyAsString = JsonConvert.SerializeObject(input, Formatting.None, new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             });

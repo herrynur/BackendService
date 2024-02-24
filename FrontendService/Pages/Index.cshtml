@@ -12,6 +12,7 @@
 <!--Button-->
 <div>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">Add New Location + </button>
+    <a class="btn btn-warning" asp-page="./MapsPage"><i class="fas fa-user"></i> Go to Maps</a>
 </div>
 <!--Table-->
 <div>
@@ -46,8 +47,10 @@
                         @place.Address
                     </td>
                     <td>
-                        <button type="button" class="btn btn-warning">Edit</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@place.Id">
+                            <a class="btn btn-warning" asp-page="./DetailPage" asp-route-id="@place.Id"><i class="fas fa-user"></i> Detail</a>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
             }
@@ -95,28 +98,7 @@
         </div>
     </div>
 </div>
-<!-- Modal Delete -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Delete</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center">
-                    <h4>Are You Sure to Delete</h4>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--JS-->
+
 @section scripts {
     <script>
         

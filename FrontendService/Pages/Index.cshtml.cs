@@ -40,11 +40,11 @@ namespace FrontendService.Pages
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(Guid id)
+        public async Task<IActionResult> OnPostDeleteAsync(PlaceReadDto place)
         {
-            _logger.LogInformation($"Delete {id}");
+            _logger.LogInformation($"Delete {place.Id}");
 
-            await _placeServices.DeletePlaceAsync(id, cancellationToken : default);
+            await _placeServices.DeletePlaceAsync(place.Id, cancellationToken : default);
 
             return RedirectToPage();
         }
