@@ -23,21 +23,21 @@
                     <div class="img-square-wrapper">
                         <div id="map"></div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="placeDetails">
                         <h6 class="card-title">Owner Name</h6>
-                        <p class="card-text">@Model.Place.OwnerName</p>
+                        <p class="card-text" id="ownerName"> - </p>
                         <h6 class="card-title">Place Name</h6>
-                        <p class="card-text">Null</p>
+                        <p class="card-text" id="placeName"> - </p>
                         <h6 class="card-title">Address</h6>
-                        <p class="card-text">Null</p>
+                        <p class="card-text" id="address"> - </p>
                         <h6 class="card-title">Longitude</h6>
-                        <p class="card-text">Null</p>
+                        <p class="card-text" id="longitude"> - </p>
                         <h6 class="card-title">Latitude</h6>
-                        <p class="card-text">Null</p>
+                        <p class="card-text" id="latitude"> - </p>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <p class="card-text"><small class="text-muted">Created At Null</small></p>
+                    <p class="card-text"><small class="text-muted" id="createdAt">@Model.Place.CreatedAt.DateTime</small></p>
                 </div>
             </div>
         </div>
@@ -56,6 +56,15 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    //Set
+    var placeDetails = document.getElementById('placeDetails');
+    var ownerNameElement = document.getElementById('ownerName');
+    var placeNameElement = document.getElementById('placeName');
+    var addressElement = document.getElementById('address');
+    var longitudeElement = document.getElementById('longitude');
+    var latitudeElement = document.getElementById('latitude');
+    var createdAtElement = document.getElementById('createdAt');
+
     @foreach (var place in Model.Places)
     {
         <text>
@@ -64,7 +73,21 @@
                 .on('click', onClick);
 
         function onClick(e) {
-            
+            var ownerName = '@place.OwnerName';
+            var placeName = '@place.PlaceName';
+            var address = '@place.Address';
+            var longitude = '@place.Longitude';
+            var latitude = '@place.Lattitude';
+            var createdAt = '@place.CreatedAt.DateTime;'
+
+            ownerNameElement.innerText = ownerName;
+            placeNameElement.innerText = placeName;
+            addressElement.innerText = address;
+            longitudeElement.innerText = longitude;
+            latitudeElement.innerText = latitude;
+            createdAtElement.innerText = createdAt;
+
+            placeDetails.style.display = 'block';
         }
         </text>
     }
@@ -81,7 +104,7 @@
     }
 
     #map {
-        height: 400px;
+        height: 500px;
         width: 1000px;
     }
 </style>

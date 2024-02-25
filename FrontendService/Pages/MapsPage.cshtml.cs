@@ -22,16 +22,6 @@ namespace FrontendService.Pages
         {
             Places = await _placeServices.GetAllPlaceAsync(cancellationToken: default);
 
-            //Init place
-            Place = new()
-            {
-                Address = "-",
-                Lattitude = "-",
-                Longitude = "-",
-                OwnerName = "-",
-                PlaceName = "-",
-            };
-
             return Page();
         }
     }
