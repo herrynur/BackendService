@@ -1,0 +1,110 @@
+﻿@page
+@model FrontendService.Pages.MapsPageModel
+@{
+    ViewData["Title"] = "Maps";
+}
+<div class="center-margin">
+    <h4>
+        Maps
+    </h4>
+</div>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <div id="map"></div>
+                    </div>
+                    <div class="card-body" id="placeDetails">
+                        <h6 class="card-title">Owner Name</h6>
+                        <p class="card-text" id="ownerName"> - </p>
+                        <h6 class="card-title">Place Name</h6>
+                        <p class="card-text" id="placeName"> - </p>
+                        <h6 class="card-title">Address</h6>
+                        <p class="card-text" id="address"> - </p>
+                        <h6 class="card-title">Longitude</h6>
+                        <p class="card-text" id="longitude"> - </p>
+                        <h6 class="card-title">Latitude</h6>
+                        <p class="card-text" id="latitude"> - </p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="card-text"><small class="text-muted" id="createdAt">@Model.Place.CreatedAt.DateTime</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    setInterval(function () {
+        map.invalidateSize();
+    }, 2000);
+
+    var map = L.map('map').setView([@Model.Places.First().Lattitude, @Model.Places.First().Longitude], 10);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    //Set
+    var placeDetails = document.getElementById('placeDetails');
+    var ownerNameElement = document.getElementById('ownerName');
+    var placeNameElement = document.getElementById('placeName');
+    var addressElement = document.getElementById('address');
+    var longitudeElement = document.getElementById('longitude');
+    var latitudeElement = document.getElementById('latitude');
+    var createdAtElement = document.getElementById('createdAt');
+
+    @foreach (var place in Model.Places)
+    {
+        <text>
+            var marker = new L.marker([@place.Lattitude, @place.Longitude])
+                .addTo(map)
+                .on('click', onClick);
+
+        function onClick(e) {
+            var ownerName = '@place.OwnerName';
+            var placeName = '@place.PlaceName';
+            var address = '@place.Address';
+            var longitude = '@place.Longitude';
+            var latitude = '@place.Lattitude';
+            var createdAt = '@place.CreatedAt.DateTime;'
+
+            ownerNameElement.innerText = ownerName;
+            placeNameElement.innerText = placeName;
+            addressElement.innerText = address;
+            longitudeElement.innerText = longitude;
+            latitudeElement.innerText = latitude;
+            createdAtElement.innerText = createdAt;
+
+            placeDetails.style.display = 'block';
+        }
+        </text>
+    }
+</script>
+
+<style>
+    .center-margin {
+        margin: 50px 0px 10px 10px;
+    }
+
+    .card-horizontal {
+        display: flex;
+        flex: 1 1 auto;
+    }
+
+    #map {
+        height: 500px;
+        width: 1000px;
+    }
+</style>
